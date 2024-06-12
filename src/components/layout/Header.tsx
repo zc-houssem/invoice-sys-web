@@ -16,6 +16,7 @@ import Image from 'next/image';
 import logo from 'src/assets/logo.png';
 import { MenuItem } from './interfaces/MenuItem.interface';
 import { useRouter } from 'next/router';
+import { LanguageSwitcher } from '../common';
 
 interface HeaderProps {
   menuItems: MenuItem[];
@@ -36,7 +37,7 @@ export const Header = ({ menuItems }: HeaderProps) => {
         <SheetContent side="left" className="flex flex-col">
           <nav className="grid gap-2 text-lg font-medium">
             <Link href="/" className="flex items-center gap-2 text-lg font-semibold">
-              <Image src={logo} alt="logo" className="h-8 w-8" />
+              <Image src={logo} alt="logo" className="h-8 w-8 grayscale" />
               <span>Invoicing System</span>
             </Link>
             {menuItems.map((item: MenuItem) => (
@@ -54,6 +55,9 @@ export const Header = ({ menuItems }: HeaderProps) => {
       <div className="w-full flex-1">
         <h1 className="font-semibold">{pageTitle}</h1>
       </div>
+      <div>
+        <LanguageSwitcher className="mx-4" />
+      </div>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="secondary" size="icon" className="rounded-full">
@@ -66,6 +70,8 @@ export const Header = ({ menuItems }: HeaderProps) => {
           <DropdownMenuSeparator />
           <DropdownMenuItem>Settings</DropdownMenuItem>
           <DropdownMenuItem>Support</DropdownMenuItem>
+          <DropdownMenuItem>Logout</DropdownMenuItem>
+
           <DropdownMenuSeparator />
           <DropdownMenuItem>Logout</DropdownMenuItem>
         </DropdownMenuContent>
