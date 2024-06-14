@@ -6,9 +6,11 @@ import { Slide, ToastContainer } from 'react-toastify';
 import Application from '@/components/Application';
 import 'react-toastify/dist/ReactToastify.css';
 import { configure } from 'mobx';
-import { observer } from 'mobx-react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
-const App = observer(({ Component, pageProps }: AppProps) => {
+const queryClient = new QueryClient();
+
+const App = ({ Component, pageProps }: AppProps) => {
   return (
     <>
       <Head>
@@ -17,17 +19,19 @@ const App = observer(({ Component, pageProps }: AppProps) => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <ToastContainer
-        toastClassName={'duration-200'}
-        className={'duration-200'}
-        position="bottom-left"
-        bodyClassName={'text-sm rounded-md duration-200'}
-        transition={Slide}
-      />
-      <Application Component={Component} pageProps={pageProps} />
+      <QueryClientProvider client={queryClient}>
+        <ToastContainer
+          toastClassName={'duration-200'}
+          className={'duration-200'}
+          position="bottom-left"
+          bodyClassName={'text-sm rounded-md duration-200'}
+          transition={Slide}
+        />
+        <Application Component={Component} pageProps={pageProps} />
+      </QueryClientProvider>
     </>
   );
-});
+};
 
 configure({
   enforceActions: 'never'

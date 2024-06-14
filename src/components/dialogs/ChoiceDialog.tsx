@@ -7,9 +7,9 @@ interface ChoiceDialogProps {
   prompt?: React.ReactNode;
   open: boolean;
   onClose: Function;
-  description?: string;
+  description?: React.ReactNode;
   positiveCallback?: Function;
-  negativeCallback?: React.MouseEventHandler;
+  negativeCallback?: Function;
 }
 
 export const ChoiceDialog = ({
@@ -29,16 +29,21 @@ export const ChoiceDialog = ({
           <DialogDescription> {description}</DialogDescription>
         </DialogHeader>
         <div>
-          <div className="mt-4">
+          <div>
             <Button
-              className="mx-1"
+              className="ml-1"
               onClick={() => {
                 positiveCallback?.();
                 onClose();
               }}>
               Oui
             </Button>
-            <Button className="mx-2" onClick={negativeCallback}>
+            <Button
+              className="ml-2"
+              onClick={() => {
+                negativeCallback?.();
+                onClose();
+              }}>
               Non
             </Button>
           </div>
